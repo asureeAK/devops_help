@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps_Must_Know_Commands</title>
+</head>
+<body>
+<pre>
+### DevOps Must-Know Command List
+
+#### 1. **Version Control (Git)**
+- Initialize Repository:
+  git init
+- Clone Repository:
+  git clone <repo_url>
+- Check Status:
+  git status
+- Add Changes:
+  git add <file> OR git add .
+- Commit Changes:
+  git commit -m "commit message"
+- Push to Remote Repository:
+  git push origin <branch_name>
+- Pull Changes:
+  git pull origin <branch_name>
+- View Log:
+  git log
+
+#### 2. **CI/CD (Jenkins, GitLab, etc.)**
+- Jenkins CLI Trigger:
+  java -jar jenkins-cli.jar -s <jenkins_url> build <job_name>
+- GitLab CI Lint:
+  gitlab-runner verify
+- CircleCI Config Validation:
+  circleci config validate
+- YAML Linting:
+  yamllint <file.yml>
+
+#### 3. **Containerization (Docker, Podman)**
+- Build Docker Image:
+  docker build -t <image_name> .
+- Run Container:
+  docker run -d -p <host_port>:<container_port> <image_name>
+- List Running Containers:
+  docker ps
+- Stop Container:
+  docker stop <container_id>
+- Podman Run:
+  podman run -d -p <host_port>:<container_port> <image_name>
+
+#### 4. **Container Orchestration (Kubernetes)**
+- Check Nodes:
+  kubectl get nodes
+- Apply Configuration:
+  kubectl apply -f <file.yaml>
+- Delete Resources:
+  kubectl delete -f <file.yaml>
+- View Pod Logs:
+  kubectl logs <pod_name>
+- Check Deployments:
+  kubectl get deployments
+
+#### 5. **Infrastructure as Code (Terraform, CloudFormation)**
+- Terraform Initialization:
+  terraform init
+- Validate Terraform Files:
+  terraform validate
+- Plan Infrastructure:
+  terraform plan
+- Apply Changes:
+  terraform apply
+- Validate CloudFormation Template:
+  aws cloudformation validate-template --template-body file://<template.json>
+
+#### 6. **Configuration Management (Ansible, Puppet, Chef)**
+- Run Ansible Playbook:
+  ansible-playbook <playbook.yml>
+- Lint Ansible Playbook:
+  ansible-lint <playbook.yml>
+- Puppet Syntax Check:
+  puppet parser validate <file.pp>
+- Chef Cookstyle Check:
+  chef exec cookstyle
+
+#### 7. **Monitoring and Logging (Prometheus, ELK, etc.)**
+- Prometheus Configuration Check:
+  promtool check config /path/to/prometheus.yml
+- Elasticsearch Test Query:
+  curl -X GET "localhost:9200/_cat/indices?v"
+- Grafana Logs (Systemd):
+  sudo journalctl -u grafana-server
+
+#### 8. **Cloud Platforms (AWS, Azure, GCP)**
+- AWS CLI Test:
+  aws s3 ls
+- Azure CLI Test:
+  az account show
+- GCP CLI Test:
+  gcloud projects list
+
+#### 9. **Secrets Management (Vault, AWS Secrets Manager)**
+- Check Vault Status:
+  vault status
+- Retrieve AWS Secret:
+  aws secretsmanager get-secret-value --secret-id <secret_name>
+
+#### 10. **General Commands**
+- Check Open Ports:
+  netstat -tuln
+- Test Network Connectivity:
+  ping <ip_or_hostname>
+- Curl Test:
+  curl -I <url>
+- Check Disk Usage:
+  df -h
+- Monitor System Processes:
+  top OR htop
+</pre>
+</body>
+</html>

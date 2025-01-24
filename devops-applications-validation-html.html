@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps_Applications_Validation_Commands</title>
+</head>
+<body>
+<pre>
+### DevOps Must-Have Applications: Configuration and Validation Commands
+
+#### 1. Version Control Systems
+- **Git**:
+  - Validate Repository:
+    git fsck
+  - Check Current Branch and Status:
+    git status
+    git branch
+- **GitHub/GitLab/Bitbucket**:
+  - Validate CI/CD YAML Files:
+    yamllint .github/workflows/*.yml
+
+#### 2. CI/CD Tools
+- **Jenkins**:
+  - Validate Configuration Files:
+    java -jar jenkins-cli.jar -s <JENKINS_URL> list-jobs
+  - Test Jenkinsfile Syntax:
+    jenkins-linter -f Jenkinsfile
+- **GitHub Actions**:
+  - YAML Lint:
+    yamllint .github/workflows/*.yml
+- **CircleCI**:
+  - Validate `config.yml`:
+    circleci config validate
+- **GitLab CI/CD**:
+  - Validate `.gitlab-ci.yml`:
+    gitlab-runner verify
+- **Travis CI**:
+  - Test `.travis.yml`:
+    travis lint
+
+#### 3. Containerization
+- **Docker**:
+  - Validate Dockerfile:
+    docker run --rm -i hadolint/hadolint < Dockerfile
+  - Check Running Containers:
+    docker ps
+- **Podman**:
+  - Validate Image:
+    podman inspect <image_name>
+
+#### 4. Container Orchestration
+- **Kubernetes**:
+  - Validate YAML Files:
+    kubectl apply --dry-run=client -f <file>.yaml
+  - Test Cluster Health:
+    kubectl get nodes
+- **OpenShift**:
+  - Validate Resources:
+    oc apply --dry-run=client -f <file>.yaml
+
+#### 5. Configuration Management
+- **Ansible**:
+  - Lint Playbooks:
+    ansible-lint <playbook.yml>
+  - Test Configuration:
+    ansible-playbook --check <playbook.yml>
+- **Puppet**:
+  - Validate Configuration:
+    puppet parser validate <file.pp>
+- **Chef**:
+  - Test Cookbooks:
+    chef exec cookstyle
+- **SaltStack**:
+  - Test Salt State Files:
+    salt-call state.show_sls <state_name>
+
+#### 6. Infrastructure as Code (IaC)
+- **Terraform**:
+  - Validate Configuration:
+    terraform validate
+  - Test Deployment:
+    terraform plan
+- **Pulumi**:
+  - Preview Changes:
+    pulumi preview
+- **CloudFormation**:
+  - Validate Templates:
+    aws cloudformation validate-template --template-body file://<template.json>
+
+#### 7. Monitoring and Logging
+- **Prometheus**:
+  - Check Configuration File:
+    promtool check config /path/to/prometheus.yml
+- **Grafana**:
+  - Validate Dashboards:
+    Use Grafana API to validate dashboard JSON files.
+- **ELK Stack**:
+  - Test Elasticsearch Query:
+    curl -X GET "localhost:9200/_cat/indices?v"
+- **Splunk**:
+  - Validate Splunk Configurations:
+    splunk validate
+
+#### 8. Cloud Platforms
+- **AWS CLI**:
+  - Verify Command Syntax:
+    aws help
+- **Azure CLI**:
+  - Validate Commands:
+    az account show
+- **Google Cloud Platform**:
+  - Test Configuration:
+    gcloud config list
+
+#### 9. Artifact Repositories
+- **Nexus**:
+  - Validate Repository Connectivity via REST API:
+    curl -u admin:password http://<nexus_url>/service/rest/v1/repositories
+- **JFrog Artifactory**:
+  - Validate Configuration via API:
+    curl -u admin:password -X GET http://<artifactory_url>/api/system/configuration
+
+#### 10. Secrets Management
+- **HashiCorp Vault**:
+  - Validate Configuration:
+    vault status
+- **AWS Secrets Manager**:
+  - Test Secrets Retrieval:
+    aws secretsmanager get-secret-value --secret-id <secret_name>
+
+#### 11. Collaboration Tools
+- **Slack**:
+  - Validate Webhook Integration:
+    Test incoming webhooks via Slack API.
+- **Jira**:
+  - Validate API Connectivity:
+    curl -u username:api_token https://<your_jira_domain>.atlassian.net/rest/api/2/project
+
+#### 12. Testing Tools
+- **Selenium**:
+  - Test Configuration via Python or Java setup.
+- **Postman**:
+  - Validate API Collection:
+    newman run <collection.json>
+- **JMeter**:
+  - Test Plan Validation:
+    jmeter -t <test_plan.jmx> -n
+
+### DevOps Must-Know Languages: Configuration and Validation Commands
+
+#### 1. Scripting
+- **Bash**:
+  - Syntax Check:
+    bash -n <script.sh>
+- **PowerShell**:
+  - Validate Syntax:
+    Test-Command <script.ps1>
+
+#### 2. Programming
+- **Python**:
+  - Syntax Check:
+    python -m py_compile <script.py>
+- **Ruby**:
+  - Syntax Check:
+    ruby -c <script.rb>
+
+#### 3. Configuration
+- **YAML**:
+  - Validate Syntax:
+    yamllint <file.yml>
+- **JSON**:
+  - Validate File:
+    jq empty <file.json>
+
+#### 4. Query
+- **SQL**:
+  - Validate Query Execution:
+    mysql -u <user> -p -e "source <file.sql>"
+
+#### 5. Markup
+- **HTML**:
+  - Validate Syntax:
+    Use tools like W3C HTML Validator.
+- **Markdown**:
+  - Validate Syntax:
+    Use tools like markdownlint.
+
+#### 6. IaC Languages
+- **HCL (Terraform)**:
+  - Syntax Check:
+    terraform validate
+- **CloudFormation DSL**:
+  - Test Template:
+    aws cloudformation validate-template --template-body file://<template.json>
+</pre>
+</body>
+</html>

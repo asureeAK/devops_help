@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebServer_Validation_Commands</title>
+</head>
+<body>
+<pre>### Web Server Configuration Validation Commands
+
+#### 1. Nginx
+- Validate Configuration:
+  sudo nginx -t
+- Reload Configuration:
+  sudo systemctl reload nginx
+- Debug Logs:
+  sudo tail -f /var/log/nginx/error.log
+
+#### 2. Apache (httpd)
+- Validate Configuration:
+  sudo apachectl configtest
+- Reload Configuration:
+  sudo systemctl reload apache2
+- Debug Logs:
+  sudo tail -f /var/log/apache2/error.log
+
+#### 3. IIS (Windows)
+- Validate Entire Configuration:
+  Test-WebConfiguration -PSPath "IIS:\"
+- Validate Specific Site:
+  Test-WebConfiguration -PSPath "IIS:\Sites\<site-name>"
+- Access Logs:
+  C:\inetpub\logs\LogFiles
+
+#### 4. HAProxy
+- Validate Configuration:
+  sudo haproxy -c -f /etc/haproxy/haproxy.cfg
+- Reload Configuration:
+  sudo systemctl reload haproxy
+- Debug Logs:
+  sudo tail -f /var/log/haproxy.log
+
+#### 5. Lighttpd
+- Validate Configuration:
+  sudo lighttpd -t -f /etc/lighttpd/lighttpd.conf
+- Reload Configuration:
+  sudo systemctl reload lighttpd
+- Debug Logs:
+  sudo tail -f /var/log/lighttpd/error.log
+
+#### 6. Caddy
+- Validate Configuration:
+  caddy validate --config /path/to/Caddyfile
+- Reload Configuration:
+  caddy reload --config /path/to/Caddyfile
+- Debug Logs:
+  sudo journalctl -u caddy
+
+#### 7. Tomcat
+- Validate Configuration (Startup Logs):
+  sudo systemctl start tomcat
+  sudo journalctl -u tomcat
+- Debug Logs:
+  sudo tail -f /var/log/tomcat/catalina.out
+
+#### 8. OpenLiteSpeed
+- Validate Configuration:
+  sudo /usr/local/lsws/bin/lswsctrl restart
+- Access Admin Panel:
+  http://<server-ip>:7080/
+- Debug Logs:
+  /usr/local/lsws/logs/error.log
+
+### Application Language Validation Commands
+
+#### 1. PHP
+- Syntax Check for a File:
+  php -l /path/to/file.php
+- Debug Errors:
+  Enable error reporting in code:
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+- Verify Installed PHP Version:
+  php -v
+
+#### 2. Python
+- Syntax Check:
+  python -m py_compile /path/to/file.py
+- Validate Code Style (Using Flake8 or Pylint):
+  pip install flake8
+  flake8 /path/to/file.py
+- Run Application for Debugging:
+  python /path/to/app.py
+
+#### 3. Java
+- Syntax Check and Compile:
+  javac /path/to/File.java
+- Run Application:
+  java ClassName
+
+#### 4. Node.js
+- Test Application:
+  node /path/to/app.js
+- Lint Code (Using ESLint):
+  npx eslint .
+
+#### 5. Ruby
+- Syntax Check:
+  ruby -c /path/to/file.rb
+- Debug Errors:
+  ruby -w /path/to/file.rb
+
+#### 6. Bash Scripts
+- Syntax Check:
+  bash -n /path/to/script.sh
+- Debug Script Execution:
+  bash -x /path/to/script.sh
+
+#### 7. C# (dotnet)
+- Validate Syntax and Compile:
+  dotnet build /path/to/project
+- Run Application:
+  dotnet run /path/to/project
+
+#### 8. Go
+- Validate Syntax and Format Code:
+  go fmt /path/to/file.go
+- Run Application:
+  go run /path/to/file.go
+
+#### 9. Perl
+- Syntax Check:
+  perl -c /path/to/file.pl
+
+#### 10. SQL
+- Validate SQL Script (MySQL):
+  mysql --user=<user> --password=<password> -e "source /path/to/file.sql;"
+- Validate SQL Script (PostgreSQL):
+  psql -U <user> -d <database> -f /path/to/file.sql
+
+### General Functional Verification Commands
+1. Ping the Server:
+   ping <server-ip-or-domain>
+
+2. Test with CURL:
+   curl -I http://<server-ip-or-domain>
+   Expected response: HTTP `200 OK`.
+
+3. Check Open Ports:
+   sudo netstat -tuln | grep <port-number>
+
+4. Verify DNS Resolution:
+   nslookup <domain>
+
+5. Firewall Status:
+   sudo ufw status</pre>
+</body>
+</html>

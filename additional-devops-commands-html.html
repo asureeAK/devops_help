@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional DevOps Must-Know Commands</title>
+</head>
+<body>
+<pre>
+Got it! Here is the full list in a single block that you can directly copy and paste into a `.txt` file:
+
+---
+
+### **1. Version Control (Git)**
+- View Difference Before Commit:
+  ```bash
+  git diff
+  ```
+- Stash Changes:
+  ```bash
+  git stash
+  ```
+- Apply Stashed Changes:
+  ```bash
+  git stash apply
+  ```
+- Revert Commit:
+  ```bash
+  git revert <commit_hash>
+  ```
+- Merge Branches:
+  ```bash
+  git merge <branch_name>
+  ```
+
+---
+
+### **2. CI/CD**
+- Test CI/CD Pipeline Locally:
+  - **GitHub Actions**:
+    ```bash
+    act
+    ```
+  - **Jenkinsfile** (Pipeline Debugging):
+    Use Jenkins Blue Ocean plugin for visualization.
+
+---
+
+### **3. Containerization (Docker, Podman)**
+- Prune Unused Resources:
+  ```bash
+  docker system prune
+  ```
+- Check Container Resource Usage:
+  ```bash
+  docker stats
+  ```
+- Export/Import Images:
+  ```bash
+  docker save <image_name> | gzip > image.tar.gz
+  docker load < image.tar.gz
+  ```
+- Podman Check Running Containers:
+  ```bash
+  podman ps
+  ```
+
+---
+
+### **4. Kubernetes**
+- Describe Pod:
+  ```bash
+  kubectl describe pod <pod_name>
+  ```
+- Check Service Details:
+  ```bash
+  kubectl get svc
+  ```
+- Port Forward a Pod:
+  ```bash
+  kubectl port-forward pod/<pod_name> <local_port>:<container_port>
+  ```
+- Debug Container in a Pod:
+  ```bash
+  kubectl exec -it <pod_name> -- /bin/sh
+  ```
+
+---
+
+### **5. Infrastructure as Code**
+- **Terraform**:
+  - Show State:
+    ```bash
+    terraform show
+    ```
+  - Destroy Resources:
+    ```bash
+    terraform destroy
+    ```
+- **CloudFormation**:
+  - Delete Stack:
+    ```bash
+    aws cloudformation delete-stack --stack-name <stack_name>
+    ```
+
+---
+
+### **6. Configuration Management**
+- **Ansible**:
+  - Check Host Connectivity:
+    ```bash
+    ansible all -m ping -i <inventory_file>
+    ```
+- **SaltStack**:
+  - Run a Test Command on All Minions:
+    ```bash
+    salt '*' test.ping
+    ```
+
+---
+
+### **7. Monitoring and Logging**
+- **Prometheus**:
+  - Reload Configuration Without Restarting:
+    ```bash
+    curl -X POST http://<prometheus_url>:9090/-/reload
+    ```
+- **Elasticsearch**:
+  - Check Cluster Health:
+    ```bash
+    curl -X GET "localhost:9200/_cluster/health?pretty"
+    ```
+
+---
+
+### **8. Cloud Platforms**
+- **AWS**:
+  - List EC2 Instances:
+    ```bash
+    aws ec2 describe-instances
+    ```
+  - List S3 Buckets:
+    ```bash
+    aws s3 ls
+    ```
+- **Azure**:
+  - List Resource Groups:
+    ```bash
+    az group list
+    ```
+  - View Current Subscription:
+    ```bash
+    az account show
+    ```
+
+---
+
+### **9. Secrets Management**
+- **Vault**:
+  - Login to Vault:
+    ```bash
+    vault login <token>
+    ```
+  - Write a Secret:
+    ```bash
+    vault kv put secret/<key> <field>=<value>
+    ```
+
+---
+
+### **10. Linux/General Commands**
+- Search for a Process:
+  ```bash
+  ps aux | grep <process_name>
+  ```
+- Check Memory Usage:
+  ```bash
+  free -h
+  ```
+- Monitor Network Usage:
+  ```bash
+  iftop OR nload
+  ```
+- Check System Uptime:
+  ```bash
+  uptime
+  ```
+
+---
+
+Now you can simply copy this entire block and paste it into a `.txt` file. Let me know if you need any further adjustments!
+</pre>
+</body>
+</html>
