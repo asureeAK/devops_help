@@ -1,121 +1,270 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps_Must_Know_Commands</title>
+    <title>DevOps Must-Know Commands</title>
+    <style>
+        :root {
+            --primary-color: #2d333b;
+            --secondary-color: #22272e;
+            --text-color: #adbac7;
+            --link-color: #539bf5;
+            --hover-color: #316dca;
+            --code-bg: #1c2128;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 1rem 0;
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: var(--hover-color);
+        }
+
+        .command-section {
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 0.3rem 0;
+            width: 100%;
+        }
+
+        ul, ol {
+            padding-left: 2rem;
+            list-style-type: none;
+        }
+
+        li {
+            margin: 1rem 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .subsection {
+            margin-left: 1.5rem;
+        }
+
+        .section-title {
+            border-bottom: 1px solid var(--text-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-<pre>
-### DevOps Must-Know Command List
+    <header>
+        <div class="container">
+            <h1>DevOps Must-Know Commands</h1>
+        </div>
+    </header>
 
-#### 1. **Version Control (Git)**
-- Initialize Repository:
-  git init
-- Clone Repository:
-  git clone <repo_url>
-- Check Status:
-  git status
-- Add Changes:
-  git add <file> OR git add .
-- Commit Changes:
-  git commit -m "commit message"
-- Push to Remote Repository:
-  git push origin <branch_name>
-- Pull Changes:
-  git pull origin <branch_name>
-- View Log:
-  git log
+    <main class="container">
+        <a href="index.html" class="back-link">← Back to Documentation Index</a>
 
-#### 2. **CI/CD (Jenkins, GitLab, etc.)**
-- Jenkins CLI Trigger:
-  java -jar jenkins-cli.jar -s <jenkins_url> build <job_name>
-- GitLab CI Lint:
-  gitlab-runner verify
-- CircleCI Config Validation:
-  circleci config validate
-- YAML Linting:
-  yamllint <file.yml>
+        <div class="command-section">
+            <h3>1. Version Control (Git)</h3>
+            <ul>
+                <li>Initialize Repository:<br>
+                    <code>git init</code></li>
+                <li>Clone Repository:<br>
+                    <code>git clone &lt;repo_url&gt;</code></li>
+                <li>Check Status:<br>
+                    <code>git status</code></li>
+                <li>Add Changes:<br>
+                    <code>git add &lt;file&gt;</code> OR <code>git add .</code></li>
+                <li>Commit Changes:<br>
+                    <code>git commit -m "commit message"</code></li>
+                <li>Push to Remote Repository:<br>
+                    <code>git push origin &lt;branch_name&gt;</code></li>
+                <li>Pull Changes:<br>
+                    <code>git pull origin &lt;branch_name&gt;</code></li>
+                <li>View Log:<br>
+                    <code>git log</code></li>
+            </ul>
+        </div>
+                <div class="command-section">
+            <h3>2. CI/CD (Jenkins, GitLab, etc.)</h3>
+            <ul>
+                <li>Jenkins CLI Trigger:<br>
+                    <code>java -jar jenkins-cli.jar -s &lt;jenkins_url&gt; build &lt;job_name&gt;</code></li>
+                <li>GitLab CI Lint:<br>
+                    <code>gitlab-runner verify</code></li>
+                <li>CircleCI Config Validation:<br>
+                    <code>circleci config validate</code></li>
+                <li>YAML Linting:<br>
+                    <code>yamllint &lt;file.yml&gt;</code></li>
+            </ul>
+        </div>
 
-#### 3. **Containerization (Docker, Podman)**
-- Build Docker Image:
-  docker build -t <image_name> .
-- Run Container:
-  docker run -d -p <host_port>:<container_port> <image_name>
-- List Running Containers:
-  docker ps
-- Stop Container:
-  docker stop <container_id>
-- Podman Run:
-  podman run -d -p <host_port>:<container_port> <image_name>
+        <div class="command-section">
+            <h3>3. Containerization (Docker, Podman)</h3>
+            <ul>
+                <li>Build Docker Image:<br>
+                    <code>docker build -t &lt;image_name&gt; .</code></li>
+                <li>Run Container:<br>
+                    <code>docker run -d -p &lt;host_port&gt;:&lt;container_port&gt; &lt;image_name&gt;</code></li>
+                <li>List Running Containers:<br>
+                    <code>docker ps</code></li>
+                <li>Stop Container:<br>
+                    <code>docker stop &lt;container_id&gt;</code></li>
+                <li>Podman Run:<br>
+                    <code>podman run -d -p &lt;host_port&gt;:&lt;container_port&gt; &lt;image_name&gt;</code></li>
+            </ul>
+        </div>
 
-#### 4. **Container Orchestration (Kubernetes)**
-- Check Nodes:
-  kubectl get nodes
-- Apply Configuration:
-  kubectl apply -f <file.yaml>
-- Delete Resources:
-  kubectl delete -f <file.yaml>
-- View Pod Logs:
-  kubectl logs <pod_name>
-- Check Deployments:
-  kubectl get deployments
+        <div class="command-section">
+            <h3>4. Container Orchestration (Kubernetes)</h3>
+            <ul>
+                <li>Check Nodes:<br>
+                    <code>kubectl get nodes</code></li>
+                <li>Apply Configuration:<br>
+                    <code>kubectl apply -f &lt;file.yaml&gt;</code></li>
+                <li>Delete Resources:<br>
+                    <code>kubectl delete -f &lt;file.yaml&gt;</code></li>
+                <li>View Pod Logs:<br>
+                    <code>kubectl logs &lt;pod_name&gt;</code></li>
+                <li>Check Deployments:<br>
+                    <code>kubectl get deployments</code></li>
+            </ul>
+        </div>
 
-#### 5. **Infrastructure as Code (Terraform, CloudFormation)**
-- Terraform Initialization:
-  terraform init
-- Validate Terraform Files:
-  terraform validate
-- Plan Infrastructure:
-  terraform plan
-- Apply Changes:
-  terraform apply
-- Validate CloudFormation Template:
-  aws cloudformation validate-template --template-body file://<template.json>
+        <div class="command-section">
+            <h3>5. Infrastructure as Code (Terraform, CloudFormation)</h3>
+            <ul>
+                <li>Terraform Initialization:<br>
+                    <code>terraform init</code></li>
+                <li>Validate Terraform Files:<br>
+                    <code>terraform validate</code></li>
+                <li>Plan Infrastructure:<br>
+                    <code>terraform plan</code></li>
+                <li>Apply Changes:<br>
+                    <code>terraform apply</code></li>
+                <li>Validate CloudFormation Template:<br>
+                    <code>aws cloudformation validate-template --template-body file://&lt;template.json&gt;</code></li>
+            </ul>
+        </div>
 
-#### 6. **Configuration Management (Ansible, Puppet, Chef)**
-- Run Ansible Playbook:
-  ansible-playbook <playbook.yml>
-- Lint Ansible Playbook:
-  ansible-lint <playbook.yml>
-- Puppet Syntax Check:
-  puppet parser validate <file.pp>
-- Chef Cookstyle Check:
-  chef exec cookstyle
+        <div class="command-section">
+            <h3>6. Configuration Management (Ansible, Puppet, Chef)</h3>
+            <ul>
+                <li>Run Ansible Playbook:<br>
+                    <code>ansible-playbook &lt;playbook.yml&gt;</code></li>
+                <li>Lint Ansible Playbook:<br>
+                    <code>ansible-lint &lt;playbook.yml&gt;</code></li>
+                <li>Puppet Syntax Check:<br>
+                    <code>puppet parser validate &lt;file.pp&gt;</code></li>
+                <li>Chef Cookstyle Check:<br>
+                    <code>chef exec cookstyle</code></li>
+            </ul>
+        </div>
+                <div class="command-section">
+            <h3>7. Monitoring and Logging (Prometheus, ELK, etc.)</h3>
+            <ul>
+                <li>Prometheus Configuration Check:<br>
+                    <code>promtool check config /path/to/prometheus.yml</code></li>
+                <li>Elasticsearch Test Query:<br>
+                    <code>curl -X GET "localhost:9200/_cat/indices?v"</code></li>
+                <li>Grafana Logs (Systemd):<br>
+                    <code>sudo journalctl -u grafana-server</code></li>
+            </ul>
+        </div>
 
-#### 7. **Monitoring and Logging (Prometheus, ELK, etc.)**
-- Prometheus Configuration Check:
-  promtool check config /path/to/prometheus.yml
-- Elasticsearch Test Query:
-  curl -X GET "localhost:9200/_cat/indices?v"
-- Grafana Logs (Systemd):
-  sudo journalctl -u grafana-server
+        <div class="command-section">
+            <h3>8. Cloud Platforms (AWS, Azure, GCP)</h3>
+            <ul>
+                <li>AWS CLI Test:<br>
+                    <code>aws s3 ls</code></li>
+                <li>Azure CLI Test:<br>
+                    <code>az account show</code></li>
+                <li>GCP CLI Test:<br>
+                    <code>gcloud projects list</code></li>
+            </ul>
+        </div>
 
-#### 8. **Cloud Platforms (AWS, Azure, GCP)**
-- AWS CLI Test:
-  aws s3 ls
-- Azure CLI Test:
-  az account show
-- GCP CLI Test:
-  gcloud projects list
+        <div class="command-section">
+            <h3>9. Secrets Management (Vault, AWS Secrets Manager)</h3>
+            <ul>
+                <li>Check Vault Status:<br>
+                    <code>vault status</code></li>
+                <li>Retrieve AWS Secret:<br>
+                    <code>aws secretsmanager get-secret-value --secret-id &lt;secret_name&gt;</code></li>
+            </ul>
+        </div>
 
-#### 9. **Secrets Management (Vault, AWS Secrets Manager)**
-- Check Vault Status:
-  vault status
-- Retrieve AWS Secret:
-  aws secretsmanager get-secret-value --secret-id <secret_name>
+        <div class="command-section">
+            <h3>10. General Commands</h3>
+            <ul>
+                <li>Check Open Ports:<br>
+                    <code>netstat -tuln</code></li>
+                <li>Test Network Connectivity:<br>
+                    <code>ping &lt;ip_or_hostname&gt;</code></li>
+                <li>Curl Test:<br>
+                    <code>curl -I &lt;url&gt;</code></li>
+                <li>Check Disk Usage:<br>
+                    <code>df -h</code></li>
+                <li>Monitor System Processes:<br>
+                    <code>top</code> OR <code>htop</code></li>
+            </ul>
+        </div>
+    </main>
 
-#### 10. **General Commands**
-- Check Open Ports:
-  netstat -tuln
-- Test Network Connectivity:
-  ping <ip_or_hostname>
-- Curl Test:
-  curl -I <url>
-- Check Disk Usage:
-  df -h
-- Monitor System Processes:
-  top OR htop
-</pre>
+    <footer class="container">
+        <p>© 2024 DevOps Documentation. Hosted on GitHub.</p>
+    </footer>
 </body>
 </html>
