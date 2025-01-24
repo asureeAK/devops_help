@@ -73,14 +73,17 @@
             border-radius: 4px;
             font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
             font-size: 0.9em;
+            display: inline-block;
+            margin: 0.3rem 0;
         }
 
         ul, ol {
             padding-left: 2rem;
+            list-style-type: none;
         }
 
         li {
-            margin: 0.5rem 0;
+            margin: 1rem 0;
         }
 
         footer {
@@ -115,7 +118,74 @@
                     <code>sudo tail -f /var/log/nginx/error.log</code></li>
             </ul>
 
-            <!-- ... Continue with similar formatting for other web servers ... -->
+            <h3>2. Apache (httpd)</h3>
+            <ul>
+                <li>Validate Configuration:<br>
+                    <code>sudo apachectl configtest</code></li>
+                <li>Reload Configuration:<br>
+                    <code>sudo systemctl reload apache2</code></li>
+                <li>Debug Logs:<br>
+                    <code>sudo tail -f /var/log/apache2/error.log</code></li>
+            </ul>
+
+            <h3>3. IIS (Windows)</h3>
+            <ul>
+                <li>Validate Entire Configuration:<br>
+                    <code>Test-WebConfiguration -PSPath "IIS:\"</code></li>
+                <li>Validate Specific Site:<br>
+                    <code>Test-WebConfiguration -PSPath "IIS:\Sites\&lt;site-name&gt;"</code></li>
+                <li>Access Logs:<br>
+                    <code>C:\inetpub\logs\LogFiles</code></li>
+            </ul>
+
+            <h3>4. HAProxy</h3>
+            <ul>
+                <li>Validate Configuration:<br>
+                    <code>sudo haproxy -c -f /etc/haproxy/haproxy.cfg</code></li>
+                <li>Reload Configuration:<br>
+                    <code>sudo systemctl reload haproxy</code></li>
+                <li>Debug Logs:<br>
+                    <code>sudo tail -f /var/log/haproxy.log</code></li>
+            </ul>
+
+            <h3>5. Lighttpd</h3>
+            <ul>
+                <li>Validate Configuration:<br>
+                    <code>sudo lighttpd -t -f /etc/lighttpd/lighttpd.conf</code></li>
+                <li>Reload Configuration:<br>
+                    <code>sudo systemctl reload lighttpd</code></li>
+                <li>Debug Logs:<br>
+                    <code>sudo tail -f /var/log/lighttpd/error.log</code></li>
+            </ul>
+
+            <h3>6. Caddy</h3>
+            <ul>
+                <li>Validate Configuration:<br>
+                    <code>caddy validate --config /path/to/Caddyfile</code></li>
+                <li>Reload Configuration:<br>
+                    <code>caddy reload --config /path/to/Caddyfile</code></li>
+                <li>Debug Logs:<br>
+                    <code>sudo journalctl -u caddy</code></li>
+            </ul>
+
+            <h3>7. Tomcat</h3>
+            <ul>
+                <li>Validate Configuration (Startup Logs):<br>
+                    <code>sudo systemctl start tomcat</code><br>
+                    <code>sudo journalctl -u tomcat</code></li>
+                <li>Debug Logs:<br>
+                    <code>sudo tail -f /var/log/tomcat/catalina.out</code></li>
+            </ul>
+
+            <h3>8. OpenLiteSpeed</h3>
+            <ul>
+                <li>Validate Configuration:<br>
+                    <code>sudo /usr/local/lsws/bin/lswsctrl restart</code></li>
+                <li>Access Admin Panel:<br>
+                    <code>http://&lt;server-ip&gt;:7080/</code></li>
+                <li>Debug Logs:<br>
+                    <code>/usr/local/lsws/logs/error.log</code></li>
+            </ul>
         </div>
 
         <div class="command-section">
@@ -132,7 +202,78 @@
                     <code>php -v</code></li>
             </ul>
 
-            <!-- ... Continue with similar formatting for other languages ... -->
+            <h3>2. Python</h3>
+            <ul>
+                <li>Syntax Check:<br>
+                    <code>python -m py_compile /path/to/file.py</code></li>
+                <li>Validate Code Style:<br>
+                    <code>pip install flake8</code><br>
+                    <code>flake8 /path/to/file.py</code></li>
+                <li>Run Application for Debugging:<br>
+                    <code>python /path/to/app.py</code></li>
+            </ul>
+
+            <h3>3. Java</h3>
+            <ul>
+                <li>Syntax Check and Compile:<br>
+                    <code>javac /path/to/File.java</code></li>
+                <li>Run Application:<br>
+                    <code>java ClassName</code></li>
+            </ul>
+
+            <h3>4. Node.js</h3>
+            <ul>
+                <li>Test Application:<br>
+                    <code>node /path/to/app.js</code></li>
+                <li>Lint Code:<br>
+                    <code>npx eslint .</code></li>
+            </ul>
+
+            <h3>5. Ruby</h3>
+            <ul>
+                <li>Syntax Check:<br>
+                    <code>ruby -c /path/to/file.rb</code></li>
+                <li>Debug Errors:<br>
+                    <code>ruby -w /path/to/file.rb</code></li>
+            </ul>
+
+            <h3>6. Bash Scripts</h3>
+            <ul>
+                <li>Syntax Check:<br>
+                    <code>bash -n /path/to/script.sh</code></li>
+                <li>Debug Script Execution:<br>
+                    <code>bash -x /path/to/script.sh</code></li>
+            </ul>
+
+            <h3>7. C# (dotnet)</h3>
+            <ul>
+                <li>Validate Syntax and Compile:<br>
+                    <code>dotnet build /path/to/project</code></li>
+                <li>Run Application:<br>
+                    <code>dotnet run /path/to/project</code></li>
+            </ul>
+
+            <h3>8. Go</h3>
+            <ul>
+                <li>Validate Syntax and Format Code:<br>
+                    <code>go fmt /path/to/file.go</code></li>
+                <li>Run Application:<br>
+                    <code>go run /path/to/file.go</code></li>
+            </ul>
+
+            <h3>9. Perl</h3>
+            <ul>
+                <li>Syntax Check:<br>
+                    <code>perl -c /path/to/file.pl</code></li>
+            </ul>
+
+            <h3>10. SQL</h3>
+            <ul>
+                <li>Validate SQL Script (MySQL):<br>
+                    <code>mysql --user=&lt;user&gt; --password=&lt;password&gt; -e "source /path/to/file.sql;"</code></li>
+                <li>Validate SQL Script (PostgreSQL):<br>
+                    <code>psql -U &lt;user&gt; -d &lt;database&gt; -f /path/to/file.sql</code></li>
+            </ul>
         </div>
 
         <div class="command-section">
