@@ -1,194 +1,285 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Additional DevOps Must-Know Commands</title>
+    <title>Additional DevOps Commands</title>
+    <style>
+        :root {
+            --primary-color: #2d333b;
+            --secondary-color: #22272e;
+            --text-color: #adbac7;
+            --link-color: #539bf5;
+            --hover-color: #316dca;
+            --code-bg: #1c2128;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 1rem 0;
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            color: var(--hover-color);
+        }
+
+        .command-section {
+            background-color: var(--primary-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 0.3rem 0;
+            width: 100%;
+        }
+
+        ul, ol {
+            padding-left: 2rem;
+            list-style-type: none;
+        }
+
+        li {
+            margin: 1rem 0;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .subsection {
+            margin-left: 1.5rem;
+        }
+    </style>
 </head>
 <body>
-<pre>
-Got it! Here is the full list in a single block that you can directly copy and paste into a `.txt` file:
+    <header>
+        <div class="container">
+            <h1>Additional DevOps Commands</h1>
+        </div>
+    </header>
 
----
+    <main class="container">
+        <a href="index.html" class="back-link">← Back to Documentation Index</a>
 
-### **1. Version Control (Git)**
-- View Difference Before Commit:
-  ```bash
-  git diff
-  ```
-- Stash Changes:
-  ```bash
-  git stash
-  ```
-- Apply Stashed Changes:
-  ```bash
-  git stash apply
-  ```
-- Revert Commit:
-  ```bash
-  git revert <commit_hash>
-  ```
-- Merge Branches:
-  ```bash
-  git merge <branch_name>
-  ```
+        <div class="command-section">
+            <h2>1. Version Control (Git)</h2>
+            <ul>
+                <li>View Difference Before Commit:<br>
+                    <code>git diff</code></li>
+                <li>Stash Changes:<br>
+                    <code>git stash</code></li>
+                <li>Apply Stashed Changes:<br>
+                    <code>git stash apply</code></li>
+                <li>Revert Commit:<br>
+                    <code>git revert &lt;commit_hash&gt;</code></li>
+                <li>Merge Branches:<br>
+                    <code>git merge &lt;branch_name&gt;</code></li>
+            </ul>
+        </div>
 
----
+        <div class="command-section">
+            <h2>2. CI/CD</h2>
+            <ul>
+                <li>Test CI/CD Pipeline Locally:
+                    <div class="subsection">
+                        <strong>GitHub Actions:</strong><br>
+                        <code>act</code>
+                    </div>
+                    <div class="subsection">
+                        <strong>Jenkinsfile (Pipeline Debugging):</strong><br>
+                        <code>Use Jenkins Blue Ocean plugin for visualization.</code>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-### **2. CI/CD**
-- Test CI/CD Pipeline Locally:
-  - **GitHub Actions**:
-    ```bash
-    act
-    ```
-  - **Jenkinsfile** (Pipeline Debugging):
-    Use Jenkins Blue Ocean plugin for visualization.
+        <div class="command-section">
+            <h2>3. Containerization (Docker, Podman)</h2>
+            <ul>
+                <li>Prune Unused Resources:<br>
+                    <code>docker system prune</code></li>
+                <li>Check Container Resource Usage:<br>
+                    <code>docker stats</code></li>
+                <li>Export/Import Images:<br>
+                    <code>docker save &lt;image_name&gt; | gzip > image.tar.gz</code><br>
+                    <code>docker load < image.tar.gz</code></li>
+                <li>Podman Check Running Containers:<br>
+                    <code>podman ps</code></li>
+            </ul>
+        </div>
 
----
+        <div class="command-section">
+            <h2>4. Kubernetes</h2>
+            <ul>
+                <li>Describe Pod:<br>
+                    <code>kubectl describe pod &lt;pod_name&gt;</code></li>
+                <li>Check Service Details:<br>
+                    <code>kubectl get svc</code></li>
+                <li>Port Forward a Pod:<br>
+                    <code>kubectl port-forward pod/&lt;pod_name&gt; &lt;local_port&gt;:&lt;container_port&gt;</code></li>
+                <li>Debug Container in a Pod:<br>
+                    <code>kubectl exec -it &lt;pod_name&gt; -- /bin/sh</code></li>
+            </ul>
+        </div>
 
-### **3. Containerization (Docker, Podman)**
-- Prune Unused Resources:
-  ```bash
-  docker system prune
-  ```
-- Check Container Resource Usage:
-  ```bash
-  docker stats
-  ```
-- Export/Import Images:
-  ```bash
-  docker save <image_name> | gzip > image.tar.gz
-  docker load < image.tar.gz
-  ```
-- Podman Check Running Containers:
-  ```bash
-  podman ps
-  ```
+        <div class="command-section">
+            <h2>5. Infrastructure as Code</h2>
+            <ul>
+                <li><strong>Terraform:</strong>
+                    <div class="subsection">
+                        <li>Show State:<br>
+                            <code>terraform show</code></li>
+                        <li>Destroy Resources:<br>
+                            <code>terraform destroy</code></li>
+                    </div>
+                </li>
+                <li><strong>CloudFormation:</strong>
+                    <div class="subsection">
+                        <li>Delete Stack:<br>
+                            <code>aws cloudformation delete-stack --stack-name &lt;stack_name&gt;</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
----
+        <div class="command-section">
+            <h2>6. Configuration Management</h2>
+            <ul>
+                <li><strong>Ansible:</strong>
+                    <div class="subsection">
+                        <li>Check Host Connectivity:<br>
+                            <code>ansible all -m ping -i &lt;inventory_file&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>SaltStack:</strong>
+                    <div class="subsection">
+                        <li>Run a Test Command on All Minions:<br>
+                            <code>salt '*' test.ping</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-### **4. Kubernetes**
-- Describe Pod:
-  ```bash
-  kubectl describe pod <pod_name>
-  ```
-- Check Service Details:
-  ```bash
-  kubectl get svc
-  ```
-- Port Forward a Pod:
-  ```bash
-  kubectl port-forward pod/<pod_name> <local_port>:<container_port>
-  ```
-- Debug Container in a Pod:
-  ```bash
-  kubectl exec -it <pod_name> -- /bin/sh
-  ```
+        <div class="command-section">
+            <h2>7. Monitoring and Logging</h2>
+            <ul>
+                <li><strong>Prometheus:</strong>
+                    <div class="subsection">
+                        <li>Reload Configuration Without Restarting:<br>
+                            <code>curl -X POST http://&lt;prometheus_url&gt;:9090/-/reload</code></li>
+                    </div>
+                </li>
+                <li><strong>Elasticsearch:</strong>
+                    <div class="subsection">
+                        <li>Check Cluster Health:<br>
+                            <code>curl -X GET "localhost:9200/_cluster/health?pretty"</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
----
+        <div class="command-section">
+            <h2>8. Cloud Platforms</h2>
+            <ul>
+                <li><strong>AWS:</strong>
+                    <div class="subsection">
+                        <li>List EC2 Instances:<br>
+                            <code>aws ec2 describe-instances</code></li>
+                        <li>List S3 Buckets:<br>
+                            <code>aws s3 ls</code></li>
+                    </div>
+                </li>
+                <li><strong>Azure:</strong>
+                    <div class="subsection">
+                        <li>List Resource Groups:<br>
+                            <code>az group list</code></li>
+                        <li>View Current Subscription:<br>
+                            <code>az account show</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
-### **5. Infrastructure as Code**
-- **Terraform**:
-  - Show State:
-    ```bash
-    terraform show
-    ```
-  - Destroy Resources:
-    ```bash
-    terraform destroy
-    ```
-- **CloudFormation**:
-  - Delete Stack:
-    ```bash
-    aws cloudformation delete-stack --stack-name <stack_name>
-    ```
+        <div class="command-section">
+            <h2>9. Secrets Management</h2>
+            <ul>
+                <li><strong>Vault:</strong>
+                    <div class="subsection">
+                        <li>Login to Vault:<br>
+                            <code>vault login &lt;token&gt;</code></li>
+                        <li>Write a Secret:<br>
+                            <code>vault kv put secret/&lt;key&gt; &lt;field&gt;=&lt;value&gt;</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
 
----
+        <div class="command-section">
+            <h2>10. Linux/General Commands</h2>
+            <ul>
+                <li>Search for a Process:<br>
+                    <code>ps aux | grep &lt;process_name&gt;</code></li>
+                <li>Check Memory Usage:<br>
+                    <code>free -h</code></li>
+                <li>Monitor Network Usage:<br>
+                    <code>iftop OR nload</code></li>
+                <li>Check System Uptime:<br>
+                    <code>uptime</code></li>
+            </ul>
+        </div>
+    </main>
 
-### **6. Configuration Management**
-- **Ansible**:
-  - Check Host Connectivity:
-    ```bash
-    ansible all -m ping -i <inventory_file>
-    ```
-- **SaltStack**:
-  - Run a Test Command on All Minions:
-    ```bash
-    salt '*' test.ping
-    ```
-
----
-
-### **7. Monitoring and Logging**
-- **Prometheus**:
-  - Reload Configuration Without Restarting:
-    ```bash
-    curl -X POST http://<prometheus_url>:9090/-/reload
-    ```
-- **Elasticsearch**:
-  - Check Cluster Health:
-    ```bash
-    curl -X GET "localhost:9200/_cluster/health?pretty"
-    ```
-
----
-
-### **8. Cloud Platforms**
-- **AWS**:
-  - List EC2 Instances:
-    ```bash
-    aws ec2 describe-instances
-    ```
-  - List S3 Buckets:
-    ```bash
-    aws s3 ls
-    ```
-- **Azure**:
-  - List Resource Groups:
-    ```bash
-    az group list
-    ```
-  - View Current Subscription:
-    ```bash
-    az account show
-    ```
-
----
-
-### **9. Secrets Management**
-- **Vault**:
-  - Login to Vault:
-    ```bash
-    vault login <token>
-    ```
-  - Write a Secret:
-    ```bash
-    vault kv put secret/<key> <field>=<value>
-    ```
-
----
-
-### **10. Linux/General Commands**
-- Search for a Process:
-  ```bash
-  ps aux | grep <process_name>
-  ```
-- Check Memory Usage:
-  ```bash
-  free -h
-  ```
-- Monitor Network Usage:
-  ```bash
-  iftop OR nload
-  ```
-- Check System Uptime:
-  ```bash
-  uptime
-  ```
-
----
-
-Now you can simply copy this entire block and paste it into a `.txt` file. Let me know if you need any further adjustments!
-</pre>
+    <footer class="container">
+        <p>© 2024 DevOps Documentation. Hosted on GitHub.</p>
+    </footer>
 </body>
 </html>
