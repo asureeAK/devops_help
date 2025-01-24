@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Additional DevOps Commands</title>
+    <title>DevOps Applications Validation</title>
     <style>
         :root {
             --primary-color: #2d333b;
@@ -98,119 +98,183 @@
         .subsection {
             margin-left: 1.5rem;
         }
+
+        .section-title {
+            border-bottom: 1px solid var(--text-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Additional DevOps Commands</h1>
+            <h1>DevOps Applications Validation</h1>
         </div>
     </header>
 
     <main class="container">
         <a href="index.html" class="back-link">← Back to Documentation Index</a>
 
-        <div class="command-section">
-            <h2>1. Version Control (Git)</h2>
-            <ul>
-                <li>View Difference Before Commit:<br>
-                    <code>git diff</code></li>
-                <li>Stash Changes:<br>
-                    <code>git stash</code></li>
-                <li>Apply Stashed Changes:<br>
-                    <code>git stash apply</code></li>
-                <li>Revert Commit:<br>
-                    <code>git revert &lt;commit_hash&gt;</code></li>
-                <li>Merge Branches:<br>
-                    <code>git merge &lt;branch_name&gt;</code></li>
-            </ul>
-        </div>
+        <h2 class="section-title">DevOps Must-Have Applications: Configuration and Validation Commands</h2>
 
         <div class="command-section">
-            <h2>2. CI/CD</h2>
+            <h3>1. Version Control Systems</h3>
             <ul>
-                <li>Test CI/CD Pipeline Locally:
+                <li><strong>Git:</strong>
                     <div class="subsection">
-                        <strong>GitHub Actions:</strong><br>
-                        <code>act</code>
+                        <li>Validate Repository:<br>
+                            <code>git fsck</code></li>
+                        <li>Check Current Branch and Status:<br>
+                            <code>git status</code><br>
+                            <code>git branch</code></li>
                     </div>
+                </li>
+                <li><strong>GitHub/GitLab/Bitbucket:</strong>
                     <div class="subsection">
-                        <strong>Jenkinsfile (Pipeline Debugging):</strong><br>
-                        <code>Use Jenkins Blue Ocean plugin for visualization.</code>
+                        <li>Validate CI/CD YAML Files:<br>
+                            <code>yamllint .github/workflows/*.yml</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+                <div class="command-section">
+            <h3>2. CI/CD Tools</h3>
+            <ul>
+                <li><strong>Jenkins:</strong>
+                    <div class="subsection">
+                        <li>Validate Configuration Files:<br>
+                            <code>java -jar jenkins-cli.jar -s &lt;JENKINS_URL&gt; list-jobs</code></li>
+                        <li>Test Jenkinsfile Syntax:<br>
+                            <code>jenkins-linter -f Jenkinsfile</code></li>
+                    </div>
+                </li>
+                <li><strong>GitHub Actions:</strong>
+                    <div class="subsection">
+                        <li>YAML Lint:<br>
+                            <code>yamllint .github/workflows/*.yml</code></li>
+                    </div>
+                </li>
+                <li><strong>CircleCI:</strong>
+                    <div class="subsection">
+                        <li>Validate config.yml:<br>
+                            <code>circleci config validate</code></li>
+                    </div>
+                </li>
+                <li><strong>GitLab CI/CD:</strong>
+                    <div class="subsection">
+                        <li>Validate .gitlab-ci.yml:<br>
+                            <code>gitlab-runner verify</code></li>
+                    </div>
+                </li>
+                <li><strong>Travis CI:</strong>
+                    <div class="subsection">
+                        <li>Test .travis.yml:<br>
+                            <code>travis lint</code></li>
                     </div>
                 </li>
             </ul>
         </div>
 
         <div class="command-section">
-            <h2>3. Containerization (Docker, Podman)</h2>
+            <h3>3. Containerization</h3>
             <ul>
-                <li>Prune Unused Resources:<br>
-                    <code>docker system prune</code></li>
-                <li>Check Container Resource Usage:<br>
-                    <code>docker stats</code></li>
-                <li>Export/Import Images:<br>
-                    <code>docker save &lt;image_name&gt; | gzip > image.tar.gz</code><br>
-                    <code>docker load < image.tar.gz</code></li>
-                <li>Podman Check Running Containers:<br>
-                    <code>podman ps</code></li>
-            </ul>
-        </div>
-
-        <div class="command-section">
-            <h2>4. Kubernetes</h2>
-            <ul>
-                <li>Describe Pod:<br>
-                    <code>kubectl describe pod &lt;pod_name&gt;</code></li>
-                <li>Check Service Details:<br>
-                    <code>kubectl get svc</code></li>
-                <li>Port Forward a Pod:<br>
-                    <code>kubectl port-forward pod/&lt;pod_name&gt; &lt;local_port&gt;:&lt;container_port&gt;</code></li>
-                <li>Debug Container in a Pod:<br>
-                    <code>kubectl exec -it &lt;pod_name&gt; -- /bin/sh</code></li>
-            </ul>
-        </div>
-
-        <div class="command-section">
-            <h2>5. Infrastructure as Code</h2>
-            <ul>
-                <li><strong>Terraform:</strong>
+                <li><strong>Docker:</strong>
                     <div class="subsection">
-                        <li>Show State:<br>
-                            <code>terraform show</code></li>
-                        <li>Destroy Resources:<br>
-                            <code>terraform destroy</code></li>
+                        <li>Validate Dockerfile:<br>
+                            <code>docker run --rm -i hadolint/hadolint < Dockerfile</code></li>
+                        <li>Check Running Containers:<br>
+                            <code>docker ps</code></li>
                     </div>
                 </li>
-                <li><strong>CloudFormation:</strong>
+                <li><strong>Podman:</strong>
                     <div class="subsection">
-                        <li>Delete Stack:<br>
-                            <code>aws cloudformation delete-stack --stack-name &lt;stack_name&gt;</code></li>
+                        <li>Validate Image:<br>
+                            <code>podman inspect &lt;image_name&gt;</code></li>
                     </div>
                 </li>
             </ul>
         </div>
 
         <div class="command-section">
-            <h2>6. Configuration Management</h2>
+            <h3>4. Container Orchestration</h3>
+            <ul>
+                <li><strong>Kubernetes:</strong>
+                    <div class="subsection">
+                        <li>Validate YAML Files:<br>
+                            <code>kubectl apply --dry-run=client -f &lt;file&gt;.yaml</code></li>
+                        <li>Test Cluster Health:<br>
+                            <code>kubectl get nodes</code></li>
+                    </div>
+                </li>
+                <li><strong>OpenShift:</strong>
+                    <div class="subsection">
+                        <li>Validate Resources:<br>
+                            <code>oc apply --dry-run=client -f &lt;file&gt;.yaml</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-section">
+            <h3>5. Configuration Management</h3>
             <ul>
                 <li><strong>Ansible:</strong>
                     <div class="subsection">
-                        <li>Check Host Connectivity:<br>
-                            <code>ansible all -m ping -i &lt;inventory_file&gt;</code></li>
+                        <li>Lint Playbooks:<br>
+                            <code>ansible-lint &lt;playbook.yml&gt;</code></li>
+                        <li>Test Configuration:<br>
+                            <code>ansible-playbook --check &lt;playbook.yml&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>Puppet:</strong>
+                    <div class="subsection">
+                        <li>Validate Configuration:<br>
+                            <code>puppet parser validate &lt;file.pp&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>Chef:</strong>
+                    <div class="subsection">
+                        <li>Test Cookbooks:<br>
+                            <code>chef exec cookstyle</code></li>
                     </div>
                 </li>
                 <li><strong>SaltStack:</strong>
                     <div class="subsection">
-                        <li>Run a Test Command on All Minions:<br>
-                            <code>salt '*' test.ping</code></li>
+                        <li>Test Salt State Files:<br>
+                            <code>salt-call state.show_sls &lt;state_name&gt;</code></li>
                     </div>
                 </li>
             </ul>
         </div>
 
         <div class="command-section">
-            <h2>7. Monitoring and Logging</h2>
+            <h3>6. Infrastructure as Code (IaC)</h3>
+            <ul>
+                <li><strong>Terraform:</strong>
+                    <div class="subsection">
+                        <li>Validate Configuration:<br>
+                            <code>terraform validate</code></li>
+                        <li>Test Deployment:<br>
+                            <code>terraform plan</code></li>
+                    </div>
+                </li>
+                <li><strong>Pulumi:</strong>
+                    <div class="subsection">
+                        <li>Preview Changes:<br>
+                            <code>pulumi preview</code></li>
+                    </div>
+                </li>
+                <li><strong>CloudFormation:</strong>
+                    <div class="subsection">
+                        <li>Validate Templates:<br>
+                            <code>aws cloudformation validate-template --template-body file://&lt;template.json&gt;</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+                <div class="command-section">
+            <h3>7. Monitoring and Logging</h3>
             <ul>
                 <li><strong>Prometheus:</strong>
                     <div class="subsection">
@@ -228,7 +292,7 @@
         </div>
 
         <div class="command-section">
-            <h2>8. Cloud Platforms</h2>
+            <h3>8. Cloud Platforms</h3>
             <ul>
                 <li><strong>AWS:</strong>
                     <div class="subsection">
@@ -250,30 +314,186 @@
         </div>
 
         <div class="command-section">
-            <h2>9. Secrets Management</h2>
+            <h3>9. Artifact Repositories</h3>
             <ul>
-                <li><strong>Vault:</strong>
+                <li><strong>Nexus:</strong>
                     <div class="subsection">
-                        <li>Login to Vault:<br>
-                            <code>vault login &lt;token&gt;</code></li>
-                        <li>Write a Secret:<br>
-                            <code>vault kv put secret/&lt;key&gt; &lt;field&gt;=&lt;value&gt;</code></li>
+                        <li>Validate Repository Connectivity via REST API:<br>
+                            <code>curl -u admin:password http://&lt;nexus_url&gt;/service/rest/v1/repositories</code></li>
+                    </div>
+                </li>
+                <li><strong>JFrog Artifactory:</strong>
+                    <div class="subsection">
+                        <li>Validate Configuration via API:<br>
+                            <code>curl -u admin:password -X GET http://&lt;artifactory_url&gt;/api/system/configuration</code></li>
                     </div>
                 </li>
             </ul>
         </div>
 
         <div class="command-section">
-            <h2>10. Linux/General Commands</h2>
+            <h3>10. Secrets Management</h3>
             <ul>
-                <li>Search for a Process:<br>
-                    <code>ps aux | grep &lt;process_name&gt;</code></li>
-                <li>Check Memory Usage:<br>
-                    <code>free -h</code></li>
-                <li>Monitor Network Usage:<br>
-                    <code>iftop OR nload</code></li>
-                <li>Check System Uptime:<br>
-                    <code>uptime</code></li>
+                <li><strong>HashiCorp Vault:</strong>
+                    <div class="subsection">
+                        <li>Validate Configuration:<br>
+                            <code>vault status</code></li>
+                        <li>Write a Secret:<br>
+                            <code>vault kv put secret/&lt;key&gt; &lt;field&gt;=&lt;value&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>AWS Secrets Manager:</strong>
+                    <div class="subsection">
+                        <li>Test Secrets Retrieval:<br>
+                            <code>aws secretsmanager get-secret-value --secret-id &lt;secret_name&gt;</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-section">
+            <h3>11. Collaboration Tools</h3>
+            <ul>
+                <li><strong>Slack:</strong>
+                    <div class="subsection">
+                        <li>Validate Webhook Integration:<br>
+                            <code>curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello"}' &lt;webhook_url&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>Jira:</strong>
+                    <div class="subsection">
+                        <li>Validate API Connectivity:<br>
+                            <code>curl -u username:api_token https://&lt;your_jira_domain&gt;.atlassian.net/rest/api/2/project</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-section">
+            <h3>12. Testing Tools</h3>
+            <ul>
+                <li><strong>Selenium:</strong>
+                    <div class="subsection">
+                        <li>Test Configuration:<br>
+                            <code>python -c "from selenium import webdriver; driver = webdriver.Chrome()"</code></li>
+                    </div>
+                </li>
+                <li><strong>Postman:</strong>
+                    <div class="subsection">
+                        <li>Validate API Collection:<br>
+                            <code>newman run &lt;collection.json&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>JMeter:</strong>
+                    <div class="subsection">
+                        <li>Test Plan Validation:<br>
+                            <code>jmeter -t &lt;test_plan.jmx&gt; -n</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">DevOps Must-Know Languages: Configuration and Validation Commands</h2>
+
+        <div class="command-section">
+            <h3>1. Scripting</h3>
+            <ul>
+                <li><strong>Bash:</strong>
+                    <div class="subsection">
+                        <li>Syntax Check:<br>
+                            <code>bash -n &lt;script.sh&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>PowerShell:</strong>
+                    <div class="subsection">
+                        <li>Validate Syntax:<br>
+                            <code>Test-Command &lt;script.ps1&gt;</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-section">
+            <h3>2. Programming</h3>
+            <ul>
+                <li><strong>Python:</strong>
+                    <div class="subsection">
+                        <li>Syntax Check:<br>
+                            <code>python -m py_compile &lt;script.py&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>Ruby:</strong>
+                    <div class="subsection">
+                        <li>Syntax Check:<br>
+                            <code>ruby -c &lt;script.rb&gt;</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-section">
+            <h3>3. Configuration</h3>
+            <ul>
+                <li><strong>YAML:</strong>
+                    <div class="subsection">
+                        <li>Validate Syntax:<br>
+                            <code>yamllint &lt;file.yml&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>JSON:</strong>
+                    <div class="subsection">
+                        <li>Validate File:<br>
+                            <code>jq empty &lt;file.json&gt;</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-section">
+            <h3>4. Query</h3>
+            <ul>
+                <li><strong>SQL:</strong>
+                    <div class="subsection">
+                        <li>Validate Query Execution:<br>
+                            <code>mysql -u &lt;user&gt; -p -e "source &lt;file.sql&gt;"</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-section">
+            <h3>5. Markup</h3>
+            <ul>
+                <li><strong>HTML:</strong>
+                    <div class="subsection">
+                        <li>Validate Syntax:<br>
+                            <code>npx html-validator &lt;file.html&gt;</code></li>
+                    </div>
+                </li>
+                <li><strong>Markdown:</strong>
+                    <div class="subsection">
+                        <li>Validate Syntax:<br>
+                            <code>npx markdownlint &lt;file.md&gt;</code></li>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="command-section">
+            <h3>6. IaC Languages</h3>
+            <ul>
+                <li><strong>HCL (Terraform):</strong>
+                    <div class="subsection">
+                        <li>Syntax Check:<br>
+                            <code>terraform validate</code></li>
+                    </div>
+                </li>
+                <li><strong>CloudFormation DSL:</strong>
+                    <div class="subsection">
+                        <li>Test Template:<br>
+                            <code>aws cloudformation validate-template --template-body file://&lt;template.json&gt;</code></li>
+                    </div>
+                </li>
             </ul>
         </div>
     </main>
