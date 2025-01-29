@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL 15 Installation and User Setup Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #0072b8;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        h2 {
+            color: #0072b8;
+        }
+
+        pre {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 5px solid #0072b8;
+            white-space: pre-wrap; /* Allows wrapping */
+        }
+
+        section {
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>PostgreSQL 15 Installation and User Setup Guide</h1>
+
+    <section>
+        <h2>1. Update System Packages</h2>
+        <p>First, ensure your package list is up to date:</p>
+        <pre><code>sudo apt update
+sudo apt upgrade</code></pre>
+    </section>
+
+    <section>
+        <h2>2. Install PostgreSQL 15</h2>
+        <p>Add the PostgreSQL APT repository and install PostgreSQL:</p>
+        <pre><code># Import the PostgreSQL signing key
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+# Add PostgreSQL repository
+echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+
+# Update package lists again
+sudo apt update
+
+# Install PostgreSQL 15
+sudo apt install postgresql-15</code></pre>
+    </section>
+
+    <section>
+        <h2>3. Start and Enable PostgreSQL Service</h2>
+        <p>Start the PostgreSQL service and enable it to automatically start on boot:</p>
+        <pre><code>sudo systemctl start postgresql
+sudo systemctl enable postgresql</code></pre>
+    </section>
+
+    <section>
+        <h2>4. Access PostgreSQL Shell</h2>
+        <p>Switch to the PostgreSQL user and access the PostgreSQL shell:</p>
+        <pre><code>sudo -i -u postgres
+psql</code></pre>
+    </section>
+
+    <section>
+        <h2>5. Create a New Database</h2>
+        <p>Once in the PostgreSQL shell, create a new database:</p>
+        <pre><code>CREATE DATABASE mydatabase;
+\c mydatabase  -- Connect to the database</code></pre>
+    </section>
+
+    <section>
+        <h2>6. Create a New Schema</h2>
+        <p>Create a new schema within the database:</p>
+        <pre><code>CREATE SCHEMA myschema;</code></pre>
+    </section>
+
+    <section>
+        <h2>7. Create Users with Specific Permissions</h2>
+        <p>Create users with specific roles:</p>
+        
+        <h3>Creating a Read User</h3>
+        <pre><code>CREATE USER read_user WITH PASSWORD 'read_password';
+GRANT USAGE ON SCHEMA myschema TO read_user;
+GRANT SELECT ON ALL TABLES IN SCHEMA myschema TO read_user;</code></pre>
+    
+        <h3>Creating a Write User</h3>
+        <pre><code>CREATE USER write_user WITH PASSWORD 'write_password';
+GRANT USAGE ON SCHEMA myschema TO write_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA myschema TO write_user;</code></pre>
+    
+        <h3>Creating an Admin User</h3>
+        <pre><code>CREATE USER admin_user WITH PASSWORD 'admin_password';
+GRANT ALL PRIVILEGES ON SCHEMA myschema TO admin_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA myschema TO admin_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA myschema TO admin_user;</code></pre>
+    </section>
+
+    <section>
+        <h2>8. Set Default Privileges</h2>
+        <p>Set default privileges for new tables created in the schema:</p>
+        <pre><code>ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO write_user;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
+GRANT ALL PRIVILEGES ON TABLES TO admin_user;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
+GRANT ALL PRIVILEGES ON SEQUENCES TO admin_user;</code></pre>
+    </section>
+
+    <section>
+        <h2>9. Exit the PostgreSQL Shell</h2>
+        <p>To exit the PostgreSQL shell, simply type:</p>
+        <pre><code>\q</code></pre>
+        <pre><code>exit</code></pre>
+    </section>
+
+    <section>
+        <h2>10. Summary of Key SQL Commands</h2>
+        <p>Here is a summary of the key SQL commands:</p>
+        <pre><code>-- Update system packages
+sudo apt update && sudo apt upgrade
+
+-- Install PostgreSQL 15
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+sudo apt update
+sudo apt install postgresql-15
+
+# Start and enable PostgreSQL
+sudo systemctl start postgresql
+sudo systemctl enable postgresql
+
+-- Access PostgreSQL shell
+sudo -i -u postgres
+psql
+
+-- Create a new database
+CREATE DATABASE mydatabase;
+\c mydatabase
+
+-- Create a new schema
+CREATE SCHEMA myschema;
+
+-- Create Users
+CREATE USER read_user WITH PASSWORD 'read_password';
+CREATE USER write_user WITH PASSWORD 'write_password';
+CREATE USER admin_user WITH PASSWORD 'admin_password';
+
+-- Grant Permissions
+-- Read User
+GRANT USAGE ON SCHEMA myschema TO read_user;
+GRANT SELECT ON ALL TABLES IN SCHEMA myschema TO read_user;
+
+-- Write User
+GRANT USAGE ON SCHEMA myschema TO write_user;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA myschema TO write_user;
+
+-- Admin User
+GRANT ALL PRIVILEGES ON SCHEMA myschema TO admin_user;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA myschema TO admin_user;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA myschema TO admin_user;
+
+-- Set Default Privileges
+ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO write_user;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
+GRANT ALL PRIVILEGES ON TABLES TO admin_user;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
+GRANT ALL PRIVILEGES ON SEQUENCES TO admin_user;</code></pre>
+    </section>
+
+    <section>
+        <h2>11. Uninstall PostgreSQL 15</h2>
+        <p>If you need to uninstall PostgreSQL for any reason, you can do so by running:</p>
+        <pre><code># Stop the PostgreSQL service
+sudo systemctl stop postgresql
+
+# Uninstall PostgreSQL
+sudo apt remove --purge postgresql-15 postgresql-client-15 postgresql-client-common
+    
+# Remove any unused dependencies
+sudo apt autoremove</code></pre>
+        <p>Optionally, remove the PostgreSQL data directory:</p>
+        <pre><code>sudo rm -rf /var/lib/postgresql/15/main</code></pre>
+    </section>
+
+    <section>
+        <h2>12. Configure Authentication Method</h2>
+        <p>To change the authentication method to <code>md5</code>, edit the <code>pg_hba.conf</code> file:</p>
+        <pre><code>sudo nano /etc/postgresql/15/main/pg_hba.conf</code></pre>
+        <p>Change the line:</p>
+        <pre><code>local   all             all                                     peer</code></pre>
+        <p>to:</p>
+        <pre><code>local   all             all                                     md5</code></pre>
+    </section>
+
+    <section>
+        <h2>13. Set PostgreSQL to Listen on All Addresses</h2>
+        <p>Edit the <code>postgresql.conf</code> file to configure PostgreSQL to listen on all addresses:</p>
+        <pre><code>sudo nano /etc/postgresql/15/main/postgresql.conf</code></pre>
+        <p>Find the line:</p>
+        <pre><code>#listen_addresses = 'localhost'</code></pre>
+        <p>Change it to:</p>
+        <pre><code>listen_addresses = '*'</code></pre>
+    </section>
+
+    <section>
+        <h2>14. Restart PostgreSQL Service</h2>
+        <p>After making these configuration changes, restart the PostgreSQL service:</p>
+        <pre><code>sudo systemctl restart postgresql</code></pre>
+    </section>
+
+    <footer class="text-center">
+        <p>PostgreSQL Guide &copy; 2025</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
