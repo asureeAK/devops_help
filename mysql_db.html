@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MySQL 8 Installation and User Setup Guide</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #0072b8;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #05bd0d; /* Updated heading color */
+            border-bottom: 2px solid #79f97e; /* Underline effect */
+            padding-bottom: 5px;
+        }
+
+        pre {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 5px solid #0072b8; /* Border for code snippets */
+            white-space: pre-wrap; /* Allows wrapping */
+        }
+
+        section {
+            margin-bottom: 20px;
+            background: #ffffff; /* Changed to white for better contrast */
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        section:hover {
+            background-color: #79f97e; /* Highlight on hover */
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Button style for hints or additional info (if needed) */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #79f97e;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #05bd0d; /* Darker shade on hover */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>MySQL 8 Installation and User Setup Guide</h1>
+    </header>
+
+    <section>
+        <h2>1. Install MySQL:</h2>
+        <pre><code>sudo apt update
+sudo apt install mysql-server</code></pre>
+    </section>
+
+    <section>
+        <h2>2. Secure MySQL Installation:</h2>
+        <pre><code>sudo mysql_secure_installation</code></pre>
+    </section>
+
+    <section>
+        <h2>3. Start MySQL Service:</h2>
+        <pre><code>sudo systemctl start mysql
+sudo systemctl enable mysql</code></pre>
+    </section>
+
+    <section>
+        <h2>4. Log in to MySQL:</h2>
+        <pre><code>sudo mysql -u root -p</code></pre>
+    </section>
+
+    <section>
+        <h2>5. Create a Database:</h2>
+        <pre><code>CREATE DATABASE mydatabase;</code></pre>
+    </section>
+
+    <section>
+        <h2>6. Create a Table:</h2>
+        <pre><code>USE mydatabase;
+CREATE TABLE customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL
+);</code></pre>
+    </section>
+
+    <section>
+        <h2>7. Insert Data:</h2>
+        <pre><code>INSERT INTO customers (name, email) VALUES ('John Doe', 'john@example.com'), ('Jane Smith', 'jane@example.com');</code></pre>
+    </section>
+
+    <section>
+        <h2>8. Select Data:</h2>
+        <pre><code>SELECT * FROM customers;</code></pre>
+    </section>
+
+    <section>
+        <h2>9. Update Data:</h2>
+        <pre><code>UPDATE customers SET name = 'John Smith' WHERE id = 1;</code></pre>
+    </section>
+
+    <section>
+        <h2>10. Delete Data:</h2>
+        <pre><code>DELETE FROM customers WHERE id = 2;</code></pre>
+    </section>
+
+    <section>
+        <h2>11. Drop Table:</h2>
+        <pre><code>DROP TABLE customers;</code></pre>
+    </section>
+
+    <section>
+        <h2>12. Backup Database:</h2>
+        <pre><code>mysqldump -u root -p mydatabase &gt; mydatabase_backup.sql</code></pre>
+    </section>
+
+    <section>
+        <h2>13. Restore Database:</h2>
+        <pre><code>mysql -u root -p mydatabase &lt; mydatabase_backup.sql</code></pre>
+    </section>
+
+    <section>
+        <h2>14. Exit MySQL:</h2>
+        <pre><code>exit;</code></pre>
+    </section>
+
+    <footer>
+        <p>MySQL Installation Guide © 2023</p>
+        <a href="#" class="button">Download PDF Version</a> <!-- Example button -->
+    </footer>
+
+</body>
+
+</html>
