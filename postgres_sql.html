@@ -52,20 +52,47 @@
             margin-top: 20px;
             font-size: 0.8em;
         }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
 
-    <h1>PostgreSQL 15 Installation and User Setup Guide</h1>
+    <header>
+        <h1>PostgreSQL 15 Installation and User Setup Guide</h1>
+    </header>
+    <nav>
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#update-packages">1. Update System Packages</a></li>
+            <li><a href="#install-postgresql">2. Install PostgreSQL 15</a></li>
+            <li><a href="#start-service">3. Start and Enable PostgreSQL Service</a></li>
+            <li><a href="#access-shell">4. Access PostgreSQL Shell</a></li>
+            <li><a href="#configure-auth">5. Configure Authentication Method</a></li>
+            <li><a href="#listen-addresses">6. Set PostgreSQL to Listen on All Addresses</a></li>
+            <li><a href="#create-database">7. Create a New Database</a></li>
+            <li><a href="#create-schema">8. Create a New Schema</a></li>
+            <li><a href="#create-users">9. Create Users with Specific Permissions</a></li>
+            <li><a href="#alter-password">10. Alter User Password</a></li>
+            <li><a href="#default-privileges">11. Set Default Privileges</a></li>
+            <li><a href="#exit-shell">12. Exit the PostgreSQL Shell</a></li>
+            <li><a href="#summary-commands">13. Summary of Key SQL Commands</a></li>
+            <li><a href="#uninstall-postgresql">14. Uninstall PostgreSQL 15</a></li>
+            <li><a href="#restart-service">15. Restart PostgreSQL Service</a></li>
+        </ul>
+    </nav>
 
-    <section>
+    <section id="update-packages">
         <h2>1. Update System Packages</h2>
         <p>First, ensure your package list is up to date:</p>
         <pre><code>sudo apt update
 sudo apt upgrade</code></pre>
     </section>
 
-    <section>
+    <section id="install-postgresql">
         <h2>2. Install PostgreSQL 15</h2>
         <p>Add the PostgreSQL APT repository and install PostgreSQL:</p>
         <pre><code># Import the PostgreSQL signing key
@@ -81,35 +108,60 @@ sudo apt update
 sudo apt install postgresql-15</code></pre>
     </section>
 
-    <section>
+    <section id="start-service">
         <h2>3. Start and Enable PostgreSQL Service</h2>
         <p>Start the PostgreSQL service and enable it to automatically start on boot:</p>
         <pre><code>sudo systemctl start postgresql
 sudo systemctl enable postgresql</code></pre>
     </section>
 
-    <section>
+    <section id="access-shell">
         <h2>4. Access PostgreSQL Shell</h2>
         <p>Switch to the PostgreSQL user and access the PostgreSQL shell:</p>
         <pre><code>sudo -i -u postgres
 psql</code></pre>
+        <p>You must Alter the PASSWORD on 1st time login:</p>
+        <pre><code>ALTER USER postgres WITH PASSWORD 'new_password';</code></pre>
+        <p>Once you change your Password 'exit' and Login with password:</p>
+        <pre><code>\q #or exit</code></pre>
+        <pre><code>sudo -i -u postgres psql</code></pre>
     </section>
 
-    <section>
-        <h2>5. Create a New Database</h2>
+    <section id="configure-auth">
+        <h2>5. Configure Authentication Method</h2>
+        <p>To change the authentication method to <code>md5</code>, edit the <code>pg_hba.conf</code> file:</p>
+        <pre><code>sudo nano /etc/postgresql/15/main/pg_hba.conf</code></pre>
+        <p>Change the line:</p>
+        <pre><code>local   all             all                                     peer</code></pre>
+        <p>to:</p>
+        <pre><code>local   all             all                                     md5</code></pre>
+    </section>
+
+    <section id="listen-addresses">
+        <h2>6. Set PostgreSQL to Listen on All Addresses</h2>
+        <p>Edit the <code>postgresql.conf</code> file to configure PostgreSQL to listen on all addresses:</p>
+        <pre><code>sudo nano /etc/postgresql/15/main/postgresql.conf</code></pre>
+        <p>Find the line:</p>
+        <pre><code>#listen_addresses = 'localhost'</code></pre>
+        <p>If you want access anywhere, change it to:</p>
+        <pre><code>listen_addresses = '*'</code></pre>
+    </section>
+
+    <section id="create-database">
+        <h2>7. Create a New Database</h2>
         <p>Once in the PostgreSQL shell, create a new database:</p>
         <pre><code>CREATE DATABASE mydatabase;
 \c mydatabase  -- Connect to the database</code></pre>
     </section>
 
-    <section>
-        <h2>6. Create a New Schema</h2>
+    <section id="create-schema">
+        <h2>8. Create a New Schema</h2>
         <p>Create a new schema within the database:</p>
         <pre><code>CREATE SCHEMA myschema;</code></pre>
     </section>
 
-    <section>
-        <h2>7. Create Users with Specific Permissions</h2>
+    <section id="create-users">
+        <h2>9. Create Users with Specific Permissions</h2>
         <p>Create users with specific roles:</p>
         
         <h3>Creating a Read User</h3>
@@ -129,8 +181,14 @@ GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA myschema TO admin_user;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA myschema TO admin_user;</code></pre>
     </section>
 
-    <section>
-        <h2>8. Set Default Privileges</h2>
+    <section id="alter-password">
+        <h2>10. Alter User Password</h2>
+        <p>For example, to change the password for <code>read_user</code>:</p>
+        <pre><code>ALTER USER read_user WITH PASSWORD 'new_read_password';</code></pre>
+    </section>
+
+    <section id="default-privileges">
+        <h2>11. Set Default Privileges</h2>
         <p>Set default privileges for new tables created in the schema:</p>
         <pre><code>ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO write_user;
@@ -142,60 +200,72 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA myschema
 GRANT ALL PRIVILEGES ON SEQUENCES TO admin_user;</code></pre>
     </section>
 
-    <section>
-        <h2>9. Exit the PostgreSQL Shell</h2>
+    <section id="exit-shell">
+        <h2>12. Exit the PostgreSQL Shell</h2>
         <p>To exit the PostgreSQL shell, simply type:</p>
         <pre><code>\q</code></pre>
         <pre><code>exit</code></pre>
     </section>
 
-    <section>
-        <h2>10. Summary of Key SQL Commands</h2>
-        <p>Here is a summary of the key SQL commands:</p>
-        <pre><code>-- Update system packages
+    <section id="summary-commands">
+        <h2>13. Summary of Key SQL Commands</h2>
+        <p>Here is a summary of the key SQL commands and steps:</p>
+        <pre><code># Update system packages
 sudo apt update && sudo apt upgrade
 
--- Install PostgreSQL 15
+# Add PostgreSQL repository and install PostgreSQL 15
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
 sudo apt update
 sudo apt install postgresql-15
 
-# Start and enable PostgreSQL
+# Start and enable PostgreSQL service
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 
--- Access PostgreSQL shell
+# Access PostgreSQL shell
 sudo -i -u postgres
 psql
 
--- Create a new database
-CREATE DATABASE mydatabase;
-\c mydatabase
+# Configure PostgreSQL to listen on all addresses
+sudo nano /etc/postgresql/15/main/postgresql.conf
+# Change `listen_addresses = 'localhost'` to `listen_addresses = '*'`
 
--- Create a new schema
+# Configure authentication method (md5)
+sudo nano /etc/postgresql/15/main/pg_hba.conf
+# Change `local   all             all                                     peer` to `local   all             all                                     md5`
+
+# Change the default PostgreSQL user password (first-time login)
+ALTER USER postgres WITH PASSWORD 'new_password';
+
+# Create a new database
+CREATE DATABASE mydatabase;
+\c mydatabase  -- Connect to the database
+
+# Create a new schema
 CREATE SCHEMA myschema;
 
--- Create Users
+# Create users with specific permissions
+-- Read-only user
 CREATE USER read_user WITH PASSWORD 'read_password';
-CREATE USER write_user WITH PASSWORD 'write_password';
-CREATE USER admin_user WITH PASSWORD 'admin_password';
-
--- Grant Permissions
--- Read User
 GRANT USAGE ON SCHEMA myschema TO read_user;
 GRANT SELECT ON ALL TABLES IN SCHEMA myschema TO read_user;
 
--- Write User
+-- Read-write user
+CREATE USER write_user WITH PASSWORD 'write_password';
 GRANT USAGE ON SCHEMA myschema TO write_user;
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA myschema TO write_user;
 
--- Admin User
+-- Admin user
+CREATE USER admin_user WITH PASSWORD 'admin_password';
 GRANT ALL PRIVILEGES ON SCHEMA myschema TO admin_user;
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA myschema TO admin_user;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA myschema TO admin_user;
 
--- Set Default Privileges
+# Alter user password
+ALTER USER read_user WITH PASSWORD 'new_read_password';
+
+# Set default privileges for new tables
 ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO write_user;
 
@@ -203,11 +273,23 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA myschema
 GRANT ALL PRIVILEGES ON TABLES TO admin_user;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA myschema 
-GRANT ALL PRIVILEGES ON SEQUENCES TO admin_user;</code></pre>
+GRANT ALL PRIVILEGES ON SEQUENCES TO admin_user;
+
+# Exit PostgreSQL shell
+\q
+
+# Restart PostgreSQL service
+sudo systemctl restart postgresql
+
+# Uninstall PostgreSQL 15 (if needed)
+sudo systemctl stop postgresql
+sudo apt remove --purge postgresql-15 postgresql-client-15 postgresql-client-common
+sudo apt autoremove
+sudo rm -rf /var/lib/postgresql/15/main</code></pre>
     </section>
 
-    <section>
-        <h2>11. Uninstall PostgreSQL 15</h2>
+    <section id="uninstall-postgresql">
+        <h2>14. Uninstall PostgreSQL 15</h2>
         <p>If you need to uninstall PostgreSQL for any reason, you can do so by running:</p>
         <pre><code># Stop the PostgreSQL service
 sudo systemctl stop postgresql
@@ -221,36 +303,26 @@ sudo apt autoremove</code></pre>
         <pre><code>sudo rm -rf /var/lib/postgresql/15/main</code></pre>
     </section>
 
-    <section>
-        <h2>12. Configure Authentication Method</h2>
-        <p>To change the authentication method to <code>md5</code>, edit the <code>pg_hba.conf</code> file:</p>
-        <pre><code>sudo nano /etc/postgresql/15/main/pg_hba.conf</code></pre>
-        <p>Change the line:</p>
-        <pre><code>local   all             all                                     peer</code></pre>
-        <p>to:</p>
-        <pre><code>local   all             all                                     md5</code></pre>
-    </section>
-
-    <section>
-        <h2>13. Set PostgreSQL to Listen on All Addresses</h2>
-        <p>Edit the <code>postgresql.conf</code> file to configure PostgreSQL to listen on all addresses:</p>
-        <pre><code>sudo nano /etc/postgresql/15/main/postgresql.conf</code></pre>
-        <p>Find the line:</p>
-        <pre><code>#listen_addresses = 'localhost'</code></pre>
-        <p>Change it to:</p>
-        <pre><code>listen_addresses = '*'</code></pre>
-    </section>
-
-    <section>
-        <h2>14. Restart PostgreSQL Service</h2>
+    <section id="restart-service">
+        <h2>15. Restart PostgreSQL Service</h2>
         <p>After making these configuration changes, restart the PostgreSQL service:</p>
         <pre><code>sudo systemctl restart postgresql</code></pre>
     </section>
 
-    <footer class="text-center">
+    <footer>
         <p>PostgreSQL Guide &copy; 2025</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
