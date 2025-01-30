@@ -131,10 +131,38 @@ psql</code></pre>
         <h2>5. Configure Authentication Method</h2>
         <p>To change the authentication method to <code>md5</code>, edit the <code>pg_hba.conf</code> file:</p>
         <pre><code>sudo nano /etc/postgresql/15/main/pg_hba.conf</code></pre>
-        <p>Change the line:</p>
-        <pre><code>local   all             all                                     peer</code></pre>
-        <p>to:</p>
-        <pre><code>local   all             all                                     md5</code></pre>
+		<p>Change the line:</p>		
+		<pre><code>		
+#Database administrative login by Unix domain socket
+
+  local 	all 		postgres 				peer
+
+# TYPE 		DATABASE 	USER  		ADDRESS 		METHOD
+
+# "Local" is for Unix domain socket connections only
+
+  local		all 		all 					peer
+
+# IPv4 local connections:
+
+  host		all 		all 		127.0.0.1/32 		scram-sha -256
+</code></pre>
+<p>to:</p>
+<pre><code>
+#Database administrative login by Unix domain socket
+
+  local 	all 		postgres 				md5
+
+# TYPE 		DATABASE 	USER  		ADDRESS 		METHOD
+
+# "Local" is for Unix domain socket connections only
+
+  local 	all 		all 					md5
+
+# IPv4 local connections:
+
+  host 		all 		all		127.0.0.1/32 		md5
+		</code></pre>
     </section>
 
     <section id="listen-addresses">
@@ -233,7 +261,23 @@ sudo nano /etc/postgresql/15/main/postgresql.conf
 
 # Configure authentication method (md5)
 sudo nano /etc/postgresql/15/main/pg_hba.conf
-# Change `local   all             all                                     peer` to `local   all             all                                     md5`
+# Before
+#Database administrative login by Unix domain socket
+  local 	all 		postgres 				peer
+# TYPE 		DATABASE 	USER  		ADDRESS 		METHOD
+# "Local" is for Unix domain socket connections only
+  local		all 		all 					peer
+# IPv4 local connections:
+  host		all 		all 		127.0.0.1/32 		scram-sha -256
+
+# After  
+#Database administrative login by Unix domain socket
+  local 	all 		postgres 				md5
+# TYPE 		DATABASE 	USER  		ADDRESS 		METHOD
+# "Local" is for Unix domain socket connections only
+  local 	all 		all 					md5
+# IPv4 local connections:
+  host 		all 		all		127.0.0.1/32 		md5
 
 # Change the default PostgreSQL user password (first-time login)
 ALTER USER postgres WITH PASSWORD 'new_password';
